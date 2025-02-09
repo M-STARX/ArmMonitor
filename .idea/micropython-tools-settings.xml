@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MicroPythonTools">
+    <option name="activeStubsPackage" value="micropython-v1_24_1-rp2-rpi_pico2-stubs" />
+    <option name="pluginEnabled" value="true" />
+    <option name="portName" value="\\.\COM10" />
+  </component>
+</project>
