@@ -11,6 +11,7 @@ use rp235x_hal::gpio::{
 };
 
 use rp235x_hal::timer::TimerDevice;
+use rp235x_hal::uart::{DataBits, StopBits, UartConfig};
 use rp235x_hal::{self as hal, Clock, Sio, Timer};
 
 #[link_section = ".start_block"]
@@ -30,12 +31,11 @@ fn blink_led<I: PinId, P: PullType, D: TimerDevice>(
   timer.delay_ms(delay);
 }
 
-const MASTER_ADDRESS: SevenBitAddress = 0x32;
-const SLAVE_ADDRESS: SevenBitAddress = 0x33;
+#[hal::entry]
+fn main() -> ! {
+  let mut pac = hal::pac::Peripherals::take().unwrap();
 
-fn run_master(mut pac: hal::pac::Peripherals) {
   let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
-
   let clocks = hal::clocks::init_clocks_and_plls(
     XTAL_FREQ_HZ,
     pac.XOSC,
@@ -47,9 +47,7 @@ fn run_master(mut pac: hal::pac::Peripherals) {
   )
   .unwrap();
 
-  let mut timer = hal::Timer::new_timer0(pac.TIMER0, &mut pac.RESETS, &clocks);
-
-  let sio = Sio::new(pac.SIO);
+  let sio = hal::Sio::new(pac.SIO);
   let pins = hal::gpio::Pins::new(
     pac.IO_BANK0,
     pac.PADS_BANK0,
@@ -57,98 +55,43 @@ fn run_master(mut pac: hal::pac::Peripherals) {
     &mut pac.RESETS,
   );
 
-  let sda_pin: gpio::Pin<_, FunctionI2C, PullUp> = pins.gpio18.reconfigure();
-  let scl_pin: gpio::Pin<_, FunctionI2C, PullUp> = pins.gpio19.reconfigure();
-  let mut led_pin = pins.gpio25.into_push_pull_output();
-  let mut i2c = hal::I2C::new_controller(
-    pac.I2C1,
-    sda_pin,
-    scl_pin,
-    400.kHz(),
-    &mut pac.RESETS,
-    clocks.system_clock.freq(),
-  );
+  let mut timer = Timer::new_timer0(pac.TIMER0, &mut pac.RESETS, &clocks);
+  let mut led = pins.gpio25.into_push_pull_output();
 
-  blink_led(&mut led_pin, &mut timer, 400);
-  timer.delay_ms(5000);
-  blink_led(&mut led_pin, &mut timer, 400);
+  let uart0_pins = (pins.gpio2.into_function(), pins.gpio3.into_function());
+  let mut uart0 =
+    hal::uart::UartPeripheral::new(pac.UART0, uart0_pins, &mut pac.RESETS)
+      .enable(
+        UartConfig::new(115200.Hz(), DataBits::Eight, None, StopBits::One),
+        clocks.peripheral_clock.freq(),
+      )
+      .unwrap();
 
-  let mut buf: [u8; 4] = [0; 4];
-
-  if i2c.write_read(SLAVE_ADDRESS, b"1234", &mut buf).is_err() {
+  #[cfg(feature = "master")]
+  {
+    uart0.write_full_blocking(b"1234");
     loop {
-      blink_led(&mut led_pin, &mut timer, 500);
+      blink_led(&mut led, &mut timer, 100);
     }
   }
 
-  loop {
-    blink_led(&mut led_pin, &mut timer, 100);
-  }
-}
-
-//#[cfg(feature = "slave")]
-fn run_slave(mut pac: hal::pac::Peripherals) {
-  let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
-
-  let clocks = hal::clocks::init_clocks_and_plls(
-    XTAL_FREQ_HZ,
-    pac.XOSC,
-    pac.CLOCKS,
-    pac.PLL_SYS,
-    pac.PLL_USB,
-    &mut pac.RESETS,
-    &mut watchdog,
-  )
-  .unwrap();
-
-  let mut timer = hal::Timer::new_timer0(pac.TIMER0, &mut pac.RESETS, &clocks);
-
-  let sio = Sio::new(pac.SIO);
-  let pins = hal::gpio::Pins::new(
-    pac.IO_BANK0,
-    pac.PADS_BANK0,
-    sio.gpio_bank0,
-    &mut pac.RESETS,
-  );
-
-  let sda_pin: gpio::Pin<_, FunctionI2C, PullUp> = pins.gpio18.reconfigure();
-  let scl_pin: gpio::Pin<_, FunctionI2C, PullUp> = pins.gpio19.reconfigure();
-  let mut led_pin = pins.gpio25.into_push_pull_output();
-
-  let mut i2c = hal::I2C::new_peripheral_event_iterator(
-    pac.I2C1,
-    sda_pin,
-    scl_pin,
-    &mut pac.RESETS,
-    SLAVE_ADDRESS,
-  );
-
-  blink_led(&mut led_pin, &mut timer, 400);
-
-  let mut buf: [u8; 4] = [0; 4];
-
-  while i2c.rx_fifo_empty() {
-    blink_led(&mut led_pin, &mut timer, 500);
-  }
-
-  let bytes_read = i2c.read(&mut buf);
-  for _ in 0..=bytes_read + 1 {
-    blink_led(&mut led_pin, &mut timer, 200);
-  }
-
-  loop {
-    blink_led(&mut led_pin, &mut timer, 100);
-  }
-}
-
-#[hal::entry]
-fn main() -> ! {
-  let pac = hal::pac::Peripherals::take().unwrap();
-
-  #[cfg(feature = "master")]
-  run_master(pac);
   #[cfg(feature = "slave")]
-  run_slave(pac);
+  {
+    let mut buf = [0; 4];
+
+    while !uart0.uart_is_readable() {
+      blink_led(&mut led, &mut timer, 1000);
+    }
+
+    if uart0.read_full_blocking(&mut buf).is_err() {
+      loop {
+        blink_led(&mut led, &mut timer, 500);
+      }
+    }
+    loop {
+      blink_led(&mut led, &mut timer, 100);
+    }
+  }
 
   loop {
     hal::arch::wfi();
