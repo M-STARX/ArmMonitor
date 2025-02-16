@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
-#include "hardware/i2c.h"
-#include "pico/i2c_slave.h"
+#include "hardware/uart.h"
+#include "hardware/irq.h"
 
 #ifndef LED_DELAY_MS
 #define LED_DELAY_MS 250
@@ -38,41 +38,43 @@ void blink_control() {
   }
 }
 
+#define UART_ID uart0
 
-void incoming_handler(i2c_inst_t * i2c, i2c_slave_event_t event) {
-  multicore_fifo_push_blocking(1);
-  switch (event) {
-    case I2C_SLAVE_REQUEST:
-      i2c_write_byte_raw(i2c, 8);
-    default:
-      multicore_fifo_push_blocking(1);
+void on_uart_rx() {
+  while (uart_is_readable(UART_ID)) {
+    uint8_t ch = uart_getc(UART_ID);
+    if (uart_is_writable(UART_ID)) {
+      ch++;
+      uart_putc(UART_ID, ch);
+    }
   }
-}
-
-#define TARGET_PIN 20
-
-static void setup_slave() {
-  gpio_init(4); // slave SDA
-  gpio_set_function(4, GPIO_FUNC_I2C);
-  gpio_pull_up(4);
-
-  gpio_init(5); // slave SDA
-  gpio_set_function(5, GPIO_FUNC_I2C);
-  gpio_pull_up(5);
-
-  i2c_init(i2c0, 100*1000);
 }
 
 int main () {
   pico_led_init();
   blink_led_n(LED_DELAY_MS, 3);
 
-  multicore_launch_core1(blink_control);
+  uart_init(UART_ID, 9600);
 
-  i2c_inst_t* i2c_inst = i2c_get_instance(0);
-  i2c_init(i2c_inst, 100 * 1000);
+  gpio_set_function(0, UART_FUNCSEL_NUM(UART_ID, 0));
+  gpio_set_function(1, UART_FUNCSEL_NUM(UART_ID, 1));
 
-  i2c_slave_init(i2c_inst, 0x20, incoming_handler);
+  uart_set_hw_flow(UART_ID, false, false);
+  uart_set_format(UART_ID, DATA_BITS, STOP_BITS, PARITY);  
 
-  while (1); // spinlock
+  uart_set_fifo_enabled(UART_ID, false);
+
+  blink_led_n(150, 3);
+
+  irq_set_exclusive_handler(UART0_IRQ, on_uart_rx);
+  irq_set_enabled(UART0_IRQ, true);
+
+  uart_set_irq_enables(UART_ID, true, false);
+
+  uart_puts(UART_ID, "hey\n");
+
+  blink_led(1000);
+  while (1) {
+    tight_loop_contents();
+  }
 }

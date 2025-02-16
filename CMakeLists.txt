@@ -18,5 +18,5 @@ pico_add_extra_outputs(test)
 
 target_link_libraries(test pico_stdlib)
 target_link_libraries(test pico_multicore)
-target_link_libraries(test pico_i2c_slave)
-target_link_libraries(test hardware_i2c)
+target_link_libraries(test hardware_uart)
+target_link_libraries(test hardware_irq)
