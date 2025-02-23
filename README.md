@@ -8,6 +8,7 @@ and so we don't need the added complexity of SPI and I2C.
 Quite simply, UART uses two pins on each device:
 - The `tx` pin, which **t**ransmits data,
 - and the `rx` pin, which **r**eceives data.
+
 One device's `tx` should be connected to the other device's `rx`, and vice versa.
 In addition, the two devices' grounds should be connected.
 UART can transmit numbers over the interface via a bit of magic that we don't need to worry about.
@@ -43,6 +44,7 @@ the standard baudrates are as follows:
 - 230400
 - 460800
 - 921600
+
 In general, you should pick either `9600` or `115200`: `9600` is the default for MicroPython, and `115200` is the default on the raspberry pi.
 Both sides have to agree on the baudrate for it to work properly
 (sort of like how walkie talkies have to match frequencies to be able to communicate with each other),
