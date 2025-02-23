@@ -127,3 +127,10 @@ uart1.flush()
 # read from uart some number of bytes (the argument)
 uart1.read(5)
 ```
+
+# From Serial to Serialisation
+Just having a serial channel is one thing, actually writing data over it is another.
+For that, we have to talk about data serialisation.
+[This article](https://github.com/peterhinch/micropython-samples/blob/master/SERIALISATION.md)
+has a really good comparison of some of the options available to us for serialising our data.
+Will update this later once we decide on a method.
