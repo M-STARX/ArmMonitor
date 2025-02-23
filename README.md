@@ -134,3 +134,6 @@ For that, we have to talk about data serialisation.
 [This article](https://github.com/peterhinch/micropython-samples/blob/master/SERIALISATION.md)
 has a really good comparison of some of the options available to us for serialising our data.
 Will update this later once we decide on a method.
+
+# Useful links
+- [Really good resource](https://github.com/peterhinch/micropython-samples/tree/master)
