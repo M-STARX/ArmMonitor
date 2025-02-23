@@ -31,6 +31,7 @@ Only the pins marked `UART1` can be used (`UART0` is used by MicroPython to run 
 You can choose one of the two pairs:
 - `tx=Pin(4)` and `rx=Pin(5)`
 - `tx=Pin(8)` and `rx=Pin(9)`
+
 Due to hardware limitations, you can't mix and match (i.e. `tx=Pin(8)` and `rx=Pin(5)` does **NOT** work).
 
 `baudrate` is a bit unclear; it's a number that represents what "frequency" the UART is transmitting with;
