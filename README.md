@@ -73,7 +73,7 @@ Before you can do try this though, you'll have to disable echo mode and set the 
 By default, the pi will echo any data it receives on `tx` back onto `rx`.
 You can disable this and set the baudrate all in one go with this command:
 ```bash
-sudo stty -F /dev/ttyS0 -echo -onlcr 115200`
+sudo stty -F /dev/ttyS0 -echo -onlcr 115200
 ```
 `stty`'s arguments are a bit confusing if you're used to other linux commands;
 the `-` does not indicate that they are flags but rather that they should be disabled.
