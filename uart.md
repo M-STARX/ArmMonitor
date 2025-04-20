@@ -167,7 +167,6 @@ this is likely wrong (although it's possible that it doesn't work for other reas
 # Useful links
 - [Really good resource](https://github.com/peterhinch/micropython-samples/tree/master)
 
-# Footnotes
 [^1]: Why `miniuart`? `uart0` and `uart1` (the two main UART drivers) run two different standards:
 `uart0` is a Pl011 (preferable for our usecase) and `uart1` is a MiniUART. MiniUART in general is a bit less powerful
 and more susceptible to losing data than PL011.
