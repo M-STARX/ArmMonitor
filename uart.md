@@ -164,7 +164,11 @@ These pins aren't available on the pi's headers but they do exist, they're just 
 that these pins were jumped out onto the moteus hat, but we couldn't get its UART to work with any of the pin options so
 this is likely wrong (although it's possible that it doesn't work for other reasons).
 
+A new possible solution we are planning on testing now is using serial over USB. Will update this more after doing more research/testing
+of this. As of yet it's unclear if the pi can naturally route serial over the USB.
+
 # Useful links
+- [Reference for the `dtoverlay` boot configuration](https://www.raspberrypi.com/documentation/computers/configuration.html#part3.5.1)
 - [Really good resource](https://github.com/peterhinch/micropython-samples/tree/master)
 
 [^1]: Why `miniuart`? `uart0` and `uart1` (the two main UART drivers) run two different standards:
