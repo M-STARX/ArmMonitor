@@ -100,8 +100,11 @@ Password: STARX
 
 ## After logging in
 Set the settings of the serial port:
-`sudo stty -F /dev/ttyS0 -echo -onlcr 115200`
+`sudo stty -F /dev/ttyAMA0 -echo -onlcr 115200`
 Input password when prompted; the password won't show you typing it.
+If `/dev/ttyAMA0` doesn't exist, check [this section](#rerouting-serial-pins-on-the-pi) and disable the
+bluetooth interface (`dtoverlay=disable-bt` in the `/boot/firmware/config.txt` file). This should release
+the `/dev/ttyAMA0` device and let you interface with it.
 
 Disables echo, disables `\n` to `\r\n`, and sets baudrate to 115200 Hz.
 
@@ -135,5 +138,36 @@ For that, we have to talk about data serialisation.
 has a really good comparison of some of the options available to us for serialising our data.
 Will update this later once we decide on a method.
 
+# Rerouting Serial Pins on the Pi
+Due to the Moteus pi hat, we don't have access to the pins typically used for UART (14 and 15).
+We are able to reroute these pins by configuring the pi's boot settings, but we can't just pick them randomly;
+they have to be chosen from a limited set of valid pins: 14 & 15, 32 & 33, or 36 & 37.
+Adjusting this requires editing the pi's firmware configuration, located at `/boot/firmware/config.txt`.
+Adding the following:
+
+```
+dtoverlay=uart0,txd0_pin=<TX PIN>,rxd0_pin=<RX PIN>
+```
+
+(replacing `<TX PIN>` and `<RX PIN>` with your chosen pair) will do the job.
+In addition, it will likely be necessary to disable the onboard bluetooth interface in order to expose `uart0`'s functionality
+which can be done by adding this line to the config:
+
+```
+dtoverlay=disable-bt
+```
+
+If you still need bluetooth, you can sacrifice `uart1` to the cause by using `dtoverlay=miniuart-bt` instead.[^1]
+
+If you check the pi's [pinout](https://pinout.xyz), you may notice that GPIO 32, 33, 36, and 37 don't seem to exist.
+These pins aren't available on the pi's headers but they do exist, they're just hidden internally. We initially believed
+that these pins were jumped out onto the moteus hat, but we couldn't get its UART to work with any of the pin options so
+this is likely wrong (although it's possible that it doesn't work for other reasons).
+
 # Useful links
 - [Really good resource](https://github.com/peterhinch/micropython-samples/tree/master)
+
+# Footnotes
+[^1]: Why `miniuart`? `uart0` and `uart1` (the two main UART drivers) run two different standards:
+`uart0` is a Pl011 (preferable for our usecase) and `uart1` is a MiniUART. MiniUART in general is a bit less powerful
+and more susceptible to losing data than PL011.
