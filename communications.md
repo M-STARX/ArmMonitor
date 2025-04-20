@@ -1,4 +1,4 @@
-# UART on the Pico and Pi
+# Communication (UART)
 ## What is UART?
 UART stands for **U**niversal **A**synchronous **R**eceiver/**T**ransmitter;
 it's a serial protocol for communication between two devices.
@@ -16,6 +16,13 @@ If you want to know how it works under the hood, check out
 [this resource](https://www.analog.com/en/resources/analog-dialogue/articles/uart-a-hardware-communication-protocol.html).
 Essentially, you can write arbitrary data to the interface and read some number of bytes from the interface on both ends,
 but you have to provide the method of encoding/decoding the data you send.
+
+## But what about I2C/SPI/[insert favourite protocol here]?
+Two major reasons:
+- UART is simple. With only two wires (three including ground), UART has very minimal interface.
+Any device that supports UART supports it entirely, whereas protocols like I2C need a 'main' device to power several 'sub' devices.
+If one of our devices can't support the protocol it needs to, we can't use it.
+- The moteus hat is very limited in its outputs since it uses most of the pi's capabilities already.
 
 ## Programming for UART on the Pico
 MicroPython provides a convenient wrapper for these functions in the form of the `UART` class
