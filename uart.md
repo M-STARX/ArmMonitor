@@ -1,4 +1,4 @@
-# Information
+# UART on the Pico and Pi
 ## What is UART?
 UART stands for **U**niversal **A**synchronous **R**eceiver/**T**ransmitter;
 it's a serial protocol for communication between two devices.
