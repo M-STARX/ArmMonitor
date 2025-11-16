@@ -27,7 +27,7 @@ def test_Text():
     temp = 90
     batt = 67
     temp_dir = 1
-    mode_one = True
+    mode_one = False
 
     display.width = 320
     display.height = 240
