@@ -21,7 +21,7 @@ def test_color():
               sck=Pin(18),
               mosi=Pin(19),
               miso=Pin(16))
-    display = Display(spi, dc=Pin(15), cs=Pin(17), rst=Pin(14))
+    display = Display(spi, dc=Pin(15), cs=Pin(17), rst=Pin(14), rotation=0)
 
     # Fill the entire screen with blue (RGB565 format)
     display.clear(color565(255, 255, 255))
@@ -44,16 +44,67 @@ def test_Text():
               sck=Pin(18),
               mosi=Pin(19),
               miso=Pin(16))
-    display = Display(spi, dc=Pin(15), cs=Pin(17), rst=Pin(14))
+    display = Display(spi, dc=Pin(15), cs=Pin(17), rst=Pin(14), rotation=90)
 
+    temp = 90
+    batt = 67
+    mode_one = True
+
+    display.width = 320
+    display.height = 240
+    white = color565(255, 255, 255)
+    gray = color565(150, 150, 150)
+    blue = color565(3, 140, 252)
+    dark_blue = color565(0, 53, 97)
     # Fill the entire screen with blue
-    display.draw_rectangle(0, 0, display.width, display.height, color565(255, 255, 255))
+    display.clear(color565(0, 0, 0))
+    # display.draw_rectangle(0, 0, display.width, display.height, color565(255, 255, 255))
 
     # arcadepix = XglcdFont('fonts/ArcadePix9x11.c', 9, 11)
     # display.draw_text(50, 50, "Arcade Pix 9x11", color565(0, 0, 0))
-    display.draw_text(50, 50, "STARX is The GOAT", XglcdFont('ArcadePix9x11.c', 9, 11), color565(255, 255, 255))
+    # display.draw_text(80, 50, "STARX is The GOAT", XglcdFont('ArcadePix9x11.c', 9, 11), color565(255, 255, 255))
+
     print("Display background set to white with black font")
 
+    espresso_dolce = XglcdFont('EspressoDolce18x24.c', 18, 24)
+
+    display.fill_rectangle(15, 15, 290, 60, gray)
+    display.fill_rectangle(15, 90, 290, 60, gray)
+    display.fill_rectangle(15, 165, 137, 60, dark_blue if mode_one else blue)
+    display.fill_rectangle(168, 165, 137, 60, blue if mode_one else dark_blue)
+
+    display.draw_text(65, 35, "Temperature:", espresso_dolce, white, gray)
+    display.draw_text(65, 110, "Percentage:", espresso_dolce, white, gray)
+    display.draw_text(45, 185, "Mode 1", espresso_dolce, white, dark_blue)
+    display.draw_text(195, 185, "Mode 2", espresso_dolce, white, blue)
+
+    while True:
+        display.fill_rectangle(229, 34, 122, 20, gray)
+        display.fill_rectangle(229, 109, 122, 20, gray)
+
+        display.draw_text(230, 35, f"{temp} F", espresso_dolce, white, gray)
+        display.draw_text(230, 110, f"{round(batt)}%", espresso_dolce, white, gray)
+
+        if temp >= 100:
+            mode_one = False
+            display.fill_rectangle(15, 165, 137, 60, blue)
+            display.fill_rectangle(168, 165, 137, 60, dark_blue)
+            display.draw_text(45, 185, "Mode 1", espresso_dolce, white, blue)
+            display.draw_text(195, 185, "Mode 2", espresso_dolce, white, dark_blue)
+        if temp <= 50:
+            mode_one = True
+            display.fill_rectangle(15, 165, 137, 60, dark_blue)
+            display.fill_rectangle(168, 165, 137, 60, blue)
+            display.draw_text(45, 185, "Mode 1", espresso_dolce, white, dark_blue)
+            display.draw_text(195, 185, "Mode 2", espresso_dolce, white, blue)
+        if mode_one:
+            temp += 1
+        else:
+            temp -= 1
+        if batt > 0:
+            batt -= 0.1
+
+        sleep(1)
 
 test_Text()
 

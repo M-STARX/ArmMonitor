@@ -76,7 +76,6 @@ class XglcdFont(object):
             b = n & (~n+1)
             yield self.BIT_POS[b]
             n ^= b
-
     def get_letter(self, letter, color, background=0, landscape=False):
         """Convert letter byte data to pixels.
 
@@ -105,7 +104,9 @@ class XglcdFont(object):
         # Get size in bytes of specified letter
         letter_size = letter_height * letter_width
         # Create buffer (double size to accommodate 16 bit colors)
-        if background:
+        if background == -1:
+            buf = bytearray(letter_size * 2)
+        elif background:
             buf = bytearray(background.to_bytes(2, 'big') * letter_size)
         else:
             buf = bytearray(letter_size * 2)
