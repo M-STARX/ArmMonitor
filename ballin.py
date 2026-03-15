@@ -1,23 +1,23 @@
 """ILI9341 demo (bouncing boxes)."""
-from machine import Pin, SPI
+from machine import Pin, SPI, UART
+import time
 from time import sleep
 from ili9341 import Display, color565
 from xglcd_font import XglcdFont
+# from PIL import Image
 
 
-def test_Text():
-    # -------------------------------
-    # DISPLAY SETUP
-    # -------------------------------
+def main():
+    print("this is running")
     spi = SPI(0,
-              baudrate=10000000,
-              polarity=1,
-              phase=1,
-              bits=8,
-              firstbit=SPI.MSB,
-              sck=Pin(18),
-              mosi=Pin(19),
-              miso=Pin(16))
+        baudrate=10000000,
+        polarity=1,
+        phase=1,
+        bits=8,
+        firstbit=SPI.MSB,
+        sck=Pin(18),
+        mosi=Pin(19),
+        miso=Pin(16))
 
     display = Display(spi, dc=Pin(15), cs=Pin(17), rst=Pin(14), rotation=90)
 
@@ -27,7 +27,7 @@ def test_Text():
     temp = 90
     batt = 67
     temp_dir = 1
-    mode_one = False
+    mode = 1
 
     display.width = 320
     display.height = 240
@@ -35,78 +35,119 @@ def test_Text():
     gray = color565(150, 150, 150)
     blue = color565(3, 140, 252)
     dark_blue = color565(0, 53, 97)
+    green = color565(60, 140, 40)
+    yellow = color565(255, 230, 0)
+    red = color565(255, 0, 0)
+
+    font = XglcdFont('EspressoDolce18x24.c', 18, 24)
 
     # -------------------------------
     # BUTTONS
     # -------------------------------
-    button_mode1 = Pin(2, Pin.IN, Pin.PULL_UP)  # K1
-    button_mode2 = Pin(3, Pin.IN, Pin.PULL_UP)  # K2
+    buttons = [1,
+             Pin(2, Pin.IN, Pin.PULL_UP),  # K1
+             Pin(3, Pin.IN, Pin.PULL_UP),  # K2
+             Pin(4, Pin.IN, Pin.PULL_UP),  # K2
+             Pin(5, Pin.IN, Pin.PULL_UP)   # K2
+             ]
 
     # -------------------------------
     # STATIC UI
     # -------------------------------
     display.clear(color565(0, 0, 0))
-    font = XglcdFont('EspressoDolce18x24.c', 18, 24)
-
-    display.fill_rectangle(15, 15, 290, 60, gray)
-    display.fill_rectangle(15, 90, 290, 60, gray)
-
-    display.draw_text(65, 35, "Temperature:", font, white, gray)
-    display.draw_text(65, 110, "Percentage:", font, white, gray)
+    display.draw_image('teddy54x70.raw', 260, 8, 54, 70)
 
     # -------------------------------
     # MODE DRAW FUNCTION
     # -------------------------------
-    def draw_modes(active_mode_1):
-        if active_mode_1:
-            display.fill_rectangle(15, 165, 137, 60, dark_blue)
-            display.fill_rectangle(168, 165, 137, 60, blue)
-            display.draw_text(45, 185, "Mode 1", font, white, dark_blue)
-            display.draw_text(195, 185, "Mode 2", font, white, blue)
-        else:
-            display.fill_rectangle(15, 165, 137, 60, blue)
-            display.fill_rectangle(168, 165, 137, 60, dark_blue)
-            display.draw_text(45, 185, "Mode 1", font, white, blue)
-            display.draw_text(195, 185, "Mode 2", font, white, dark_blue)
+    class Button:
+        def __init__(self, x, y, label, index, txtOffset=0):
+            self.x = x
+            self.y = y
+            self.txtOffset = txtOffset
+            self.label = label
+            self.idx = index
+
+            self.clx = x + 30
+            self.cly = y + 30
+            self.crx = x + 30 + 77
+            self.cry = y + 30
+            self.cr = 30
+
+            self.rx = x + 30
+            self.ry = y
+            self.rw = 77
+            self.rh = 61
+
+            self.ox = x
+            self.oy = y
+            self.ow = 137
+            self.oh = 60
+    def draw_modes(active):
+        ModeButtons = [
+            Button(15, 90, "Mode 1", 1, 32),
+            Button(168, 90, "Mode 2", 2, 32),
+            Button(15, 165, "Mode 3", 3, 32),
+            Button(168, 165, "Mode 4", 4, 32)
+        ]
+
+        for b in ModeButtons:
+            if b.idx == active:
+                display.fill_circle(b.clx, b.cly, b.cr, green)
+                display.draw_circle(b.clx, b.cly, b.cr, yellow)
+                display.fill_circle(b.crx, b.cry, b.cr, green)
+                display.draw_circle(b.crx, b.cry, b.cr, yellow)
+                display.fill_rectangle(b.rx, b.ry, b.rw, b.rh, green)
+                # display.draw_rectangle(x, y, w, h, yellow)  # border
+                y2 = b.ry + b.rh - 1
+                display.draw_hline(b.rx, b.ry, b.rw, yellow)
+                display.draw_hline(b.rx, y2, b.rw, yellow)
+                bg = green
+            else:
+                display.fill_circle(b.clx, b.cly, b.cr, blue)
+                display.fill_circle(b.crx, b.cry, b.cr, blue)
+                display.fill_rectangle(b.rx, b.ry, b.rw, b.rh, blue)
+                bg = blue
+
+            display.draw_text(b.ox + b.txtOffset, b.oy + 21, b.label, font, white, bg)
+
+        #
+        # KILLSWITCH
+        #
+        kB = Button(92, 15, "Kill Switch", 0, 16)
+        display.fill_circle(kB.clx, kB.cly, kB.cr, red)
+        display.fill_circle(kB.crx, kB.cry, kB.cr, red)
+        display.fill_rectangle(kB.rx, kB.ry, kB.rw, kB.rh, red)
+
+        display.draw_text(kB.ox + kB.txtOffset, kB.oy + 21, "Kill Switch", font, white, red)
 
     # Draw initial mode
-    draw_modes(mode_one)
-    previous_mode = mode_one
+    draw_modes(mode)
+    previous_mode = mode
 
     # -------------------------------
     # MAIN LOOP
     # -------------------------------
     while True:
-        # Draw temp and battery
-        display.fill_rectangle(229, 34, 122, 20, gray)
-        display.fill_rectangle(229, 109, 122, 20, gray)
-
-        display.draw_text(230, 35, f"{temp} F", font, white, gray)
-        display.draw_text(230, 110, f"{round(batt)}%", font, white, gray)
+        display.draw_text(15, 30, f"{round(batt, 1)}% ", font, white)
 
         # BUTTON HANDLING
-        if button_mode1.value() == 0:
-            mode_one = True
-
-        if button_mode2.value() == 0:
-            mode_one = False
+        for i in range(len(buttons)):
+            if i == 0:
+                continue
+            if buttons[i].value() == 0:
+                mode = i
+                sleep(0.15)
 
         # Only redraw mode UI when it CHANGES
-        if mode_one != previous_mode:
-            draw_modes(mode_one)
-            previous_mode = mode_one
+        if mode != previous_mode:
+            draw_modes(mode)
+            previous_mode = mode
 
-        # TEMP+BATT VISUAL MOVEMENT
-        temp += temp_dir
-        if temp >= 100:
-            temp = 100
-            temp_dir = -1
-        if temp <= 50:
-            temp = 50
-            temp_dir = 1
+        # BATT VISUAL MOVEMENT
+        # Just for showing movement
 
-        batt = max(0, batt - 0.05)
-
+        batt = max(0, batt - 0.0005)
         sleep(0.05)
 
-test_Text()
+main()
