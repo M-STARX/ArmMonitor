@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (PBM - Portable Bitmap)."""
 from ili9341 import Display, color565
 from struct import pack, unpack
@@ -63,7 +65,7 @@ def test():
     display.clear()
 
     # Load invader .PBM image to framebuffer and get dimensions
-    invader_fb, w, h = load_pbm('images/invaders48x36.pbm')
+    invader_fb, w, h = load_pbm('../images/invaders48x36.pbm')
 
     # Create RGB565 placeholder
     placeholder = bytearray(w * h * 2)

@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 from machine import UART, Pin
 import time
 

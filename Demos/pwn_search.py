@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """Search online for pwned passwords."""
 from machine import Pin, SPI
 from hashlib import sha1
@@ -22,7 +24,7 @@ class PwnLookup(object):
                                width=320, height=240, rotation=rotation)
 
         # Load font
-        self.unispace = XglcdFont('fonts/Unispace12x24.c', 12, 24)
+        self.unispace = XglcdFont('../fonts/Unispace12x24.c', 12, 24)
 
         # Set up Keyboard
         self.keyboard = TouchKeyboard(self.display, self.unispace)

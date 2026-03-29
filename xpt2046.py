@@ -1,3 +1,5 @@
+# TOUCH FILE DO NOT EDIT
+
 # """XPT2046 Touch module."""
 # from time import sleep
 

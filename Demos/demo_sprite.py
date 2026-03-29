@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (bouncing sprite)."""
 from ili9341 import Display
 from machine import Pin, SPI
@@ -96,7 +98,7 @@ def test():
         display.clear()
 
         # Load sprite
-        logo = BouncingSprite('images/Python41x49.raw',
+        logo = BouncingSprite('../images/Python41x49.raw',
                               41, 49, 240, 320, 1, display)
 
         while True:

@@ -1,3 +1,5 @@
+# DISPLAY DRIVER DO NOT EDIT
+
 """ILI9341 LCD/Touch module."""
 from time import sleep
 from math import cos, sin, pi, radians

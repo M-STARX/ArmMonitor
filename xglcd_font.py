@@ -1,3 +1,5 @@
+# FONT UTILITY DO NOT EDIT
+
 """XGLCD Font Utility."""
 from math import ceil, floor
 

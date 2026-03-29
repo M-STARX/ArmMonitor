@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """Revised MicroPython Urequests Library.
 
 by Chris Borrill (Chris2B)

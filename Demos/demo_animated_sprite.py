@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (animated sprite).
 
     Note:  This demo requires a board with additional PSRAM.

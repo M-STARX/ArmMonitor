@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (colored squares)."""
 from time import sleep
 from ili9341 import Display

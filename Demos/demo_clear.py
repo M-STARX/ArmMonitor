@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (clear)."""
 from time import sleep, ticks_ms
 from ili9341 import Display, color565

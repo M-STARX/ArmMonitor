@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (bouncing boxes)."""
 from machine import Pin, SPI
 from random import random, seed

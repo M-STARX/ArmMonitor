@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (simple touch demo)."""
 from ili9341 import Display, color565
 from xpt2046 import Touch

@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (fonts)."""
 from time import sleep
 from ili9341 import Display, color565
@@ -24,23 +26,23 @@ def test():
 
     print('Loading fonts...')
     print('Loading arcadepix')
-    arcadepix = XglcdFont('fonts/ArcadePix9x11.c', 9, 11)
+    arcadepix = XglcdFont('../fonts/ArcadePix9x11.c', 9, 11)
     print('Loading bally')
-    bally = XglcdFont('fonts/Bally7x9.c', 7, 9)
+    bally = XglcdFont('../fonts/Bally7x9.c', 7, 9)
     print('Loading broadway')
-    broadway = XglcdFont('fonts/Broadway17x15.c', 17, 15)
+    broadway = XglcdFont('../fonts/Broadway17x15.c', 17, 15)
     print('Loading espresso_dolce')
-    espresso_dolce = XglcdFont('fonts/EspressoDolce18x24.c', 18, 24)
+    espresso_dolce = XglcdFont('../fonts/EspressoDolce18x24.c', 18, 24)
     print('Loading fixed_font')
-    fixed_font = XglcdFont('fonts/FixedFont5x8.c', 5, 8)
+    fixed_font = XglcdFont('../fonts/FixedFont5x8.c', 5, 8)
     print('Loading neato')
-    neato = XglcdFont('fonts/Neato5x7.c', 5, 7, letter_count=223)
+    neato = XglcdFont('../fonts/Neato5x7.c', 5, 7, letter_count=223)
     print('Loading robotron')
-    robotron = XglcdFont('fonts/Robotron13x21.c', 13, 21)
+    robotron = XglcdFont('../fonts/Robotron13x21.c', 13, 21)
     print('Loading unispace')
-    unispace = XglcdFont('fonts/Unispace12x24.c', 12, 24)
+    unispace = XglcdFont('../fonts/Unispace12x24.c', 12, 24)
     print('Loading wendy')
-    wendy = XglcdFont('fonts/Wendy7x8.c', 7, 8)
+    wendy = XglcdFont('../fonts/Wendy7x8.c', 7, 8)
     print('Fonts loaded.')
 
     display.draw_text(0, 0, 'Arcade Pix 9x11', arcadepix, color565(255, 0, 0))

@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (SD Card with touchscreen demo).
 
 The Micropython Machine SDCard library can cause conflicts with the ILI9341.

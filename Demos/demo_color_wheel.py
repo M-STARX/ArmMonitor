@@ -1,7 +1,17 @@
-"""ILI9341 demo (color palette)."""
+# THIS IS A DEMO DO NOT USE
+
+"""ILI9341 demo (color wheel)."""
 from time import sleep
 from ili9341 import Display, color565
 from machine import Pin, SPI
+from math import cos, pi, sin
+
+HALF_WIDTH = const(120)
+HALF_HEIGHT = const(160)
+CENTER_X = const(119)
+CENTER_Y = const(159)
+ANGLE_STEP_SIZE = 0.05  # Decrease step size for higher resolution
+PI2 = pi * 2
 
 
 def hsv_to_rgb(h, s, v):
@@ -47,12 +57,23 @@ def test():
     spi = SPI(1, baudrate=40000000, sck=Pin(14), mosi=Pin(13))
     display = Display(spi, dc=Pin(4), cs=Pin(16), rst=Pin(17))
 
-    c = 0
-    for x in range(0, 240, 20):
-        for y in range(0, 320, 20):
-            color = color565(*hsv_to_rgb(c / 192, 1, 1))
-            display.fill_circle(x + 9, y + 9, 9, color)
-            c += 1
+    x, y = 0, 0
+    angle = 0.0
+    #  Loop all angles from 0 to 2 * PI radians
+    while angle < PI2:
+        # Calculate x, y from a vector with known length and angle
+        x = int(CENTER_X * sin(angle) + HALF_WIDTH)
+        y = int(CENTER_Y * cos(angle) + HALF_HEIGHT)
+        color = color565(*hsv_to_rgb(angle / PI2, 1, 1))
+        display.draw_line(x, y, CENTER_X, CENTER_Y, color)
+        angle += ANGLE_STEP_SIZE
+
+    sleep(5)
+
+    for r in range(CENTER_X, 0, -1):
+        color = color565(*hsv_to_rgb(r / HALF_WIDTH, 1, 1))
+        display.fill_circle(CENTER_X, CENTER_Y, r, color)
+
     sleep(9)
     display.cleanup()
 

@@ -1,3 +1,5 @@
+# THIS IS A DEMO DO NOT USE
+
 """ILI9341 demo (CircuitPython Text, Shape & Sprite)."""
 import board
 from busio import SPI
@@ -111,7 +113,7 @@ def test():
         display.clear()
 
         # Load Fixed Font
-        fixed = XglcdFont('fonts/FixedFont5x8.c', 5, 8, letter_count=96)
+        fixed = XglcdFont('../fonts/FixedFont5x8.c', 5, 8, letter_count=96)
 
         # Title
         WIDTH = 128
@@ -125,7 +127,7 @@ def test():
         display.draw_rectangle(0, 0, 127, 20, color565(0, 255, 0))
 
         # Load sprite
-        logo = BouncingSprite('images/blinka45x48.raw',
+        logo = BouncingSprite('../images/blinka45x48.raw',
                               45, 48, 239, 319, 1, display)
 
         while True:
