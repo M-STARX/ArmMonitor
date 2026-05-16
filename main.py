@@ -93,11 +93,11 @@ def main():
     font = XglcdFont('EspressoDolce18x24.c', 18, 24)
 
     # connect to the ralph Pi4
-    s = connect_to_hotspot(display, font)
+    s = connect_to_hotspot(display, font)   # COMMENT OUT IF NOT INTEGRATED
     
     # start a poller for the connection
-    poller = select.poll()
-    poller.register(s, select.POLLIN)
+    poller = select.poll()                  # COMMENT OUT IF NOT INTEGRATED
+    poller.register(s, select.POLLIN)       # COMMENT OUT IF NOT INTEGRATED
 
     # -------------------------------
     # INITIAL VALUES
@@ -220,7 +220,7 @@ def main():
             
     heightMSG = f"Height:{12 * feet + inch}\n"
     print(f"Sending: {heightMSG.strip()}")
-    s.send(heightMSG.encode('utf-8'))
+    s.send(heightMSG.encode('utf-8'))       # COMMENT OUT IF NOT INTEGRATED
         
     # -------------------------------
     # STATIC UI
@@ -325,7 +325,7 @@ def main():
         # parse the data coming from the exo
         batt, motor1_temp, motor2_temp, motor3_temp, motor4_temp = parse_incoming_data(
             s, poller, batt, motor1_temp, motor2_temp, motor3_temp, motor4_temp
-        )
+        )       # COMMENT OUT IF NOT INTEGRATED
         
         # current_time = time.time()
         # if current_time - last_ping_time > 2.0:
@@ -360,7 +360,7 @@ def main():
             
             modeMSG = f"Mode {mode}\n"
             print(f"Sending message {modeMSG.strip()}")
-            s.send(modeMSG.encode('utf-8'))
+            s.send(modeMSG.encode('utf-8')) # COMMENT OUT IF NOT INTEGRATED
             
             print(f"Switched to Mode {mode}")
 
