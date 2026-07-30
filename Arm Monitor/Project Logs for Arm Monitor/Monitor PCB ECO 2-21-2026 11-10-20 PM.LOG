@@ -1,0 +1,15 @@
+Added Component: Designator=J1(TE_440055-3)
+Add component (AddParameter): Name = "Digi-Key_Part_Number"; Value = "A100044-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DigiKey-Purchase-URL"; Value = "https://snapeda.com/shop?store=DigiKey&id=2374828"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "EU_RoHS_Compliance"; Value = "Compliant"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "TE Connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "440055-3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/440055-3/TE%20Connectivity%20AMP%20Connectors/view-part/2374828/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=J1-1
+Added Pin To Net: NetName=RX Pin=J1-2
+Added Net: Name=RX
+Added Pin To Net: NetName=TX Pin=J1-3
+Added Net: Name=TX
+Added Member To Class: ClassName=Schematic Member=Component J1 440055-3

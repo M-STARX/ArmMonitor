@@ -1,0 +1,3 @@
+Layer Pairs Export File for PCB: C:\Users\Public\Documents\Altium\Arm Monitor\Monitor.PcbDoc
+LayersSetName=Top_Bot_Plated_Thru_Holes|DrillFile=monitor-plated.txt|DrillLayers=gtl,gbl
+LayersSetName=Top_Bot_NonPlated_Thru_Holes|DrillFile=monitor-nonplated.txt|DrillLayers=gtl,gbl

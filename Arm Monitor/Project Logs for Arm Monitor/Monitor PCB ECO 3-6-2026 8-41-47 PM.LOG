@@ -1,0 +1,43 @@
+Change Component Designator: OldDesignator=Mode 1 NewDesignator=S1
+Change Component Designator: OldDesignator=Mode 2 NewDesignator=S2
+Change Component Designator: OldDesignator=Mode 3 NewDesignator=S4
+Change Component Designator: OldDesignator=Mode 4 NewDesignator=S3
+Change Component Designator: OldDesignator=Power NewDesignator=D1
+Added Component: Designator=U1(MODULE_SC0915)
+Add component (AddParameter): Name = "Availability"; Value = "In Stock"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/SC0915/Raspberry+Pi/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Raspberry Pi"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "SC0915"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Purchase-URL"; Value = "https://pricing.snapeda.com/search/part/SC0915/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/SC0915/Raspberry+Pi/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=TX Pin=U1-1
+Added Pin To Net: NetName=RX Pin=U1-2
+Added Pin To Net: NetName=GND Pin=U1-3
+Added Pin To Net: NetName=SD Pin=U1-4
+Added Pin To Net: NetName=A+ Pin=U1-5
+Added Pin To Net: NetName=GND Pin=U1-8
+Added Pin To Net: NetName=SW3 Pin=U1-9
+Added Pin To Net: NetName=SW4 Pin=U1-10
+Added Pin To Net: NetName=GND Pin=U1-13
+Added Pin To Net: NetName=GND Pin=U1-18
+Added Pin To Net: NetName=RST Pin=U1-19
+Added Pin To Net: NetName=DC Pin=U1-20
+Added Pin To Net: NetName=MISO Pin=U1-21
+Added Pin To Net: NetName=CS Pin=U1-22
+Added Pin To Net: NetName=GND Pin=U1-23
+Added Pin To Net: NetName=SCK Pin=U1-24
+Added Pin To Net: NetName=MOSI Pin=U1-25
+Added Pin To Net: NetName=SW1 Pin=U1-26
+Added Pin To Net: NetName=SW2 Pin=U1-27
+Added Pin To Net: NetName=GND Pin=U1-28
+Added Pin To Net: NetName=SW5 Pin=U1-29
+Added Pin To Net: NetName=GND Pin=U1-33
+Added Pin To Net: NetName=GND Pin=U1-37
+Added Pin To Net: NetName=GND Pin=U1-38
+Added Pin To Net: NetName=3V3 Pin=U1-39
+Added Pin To Net: NetName=GND Pin=U1-D2
+Added Member To Class: ClassName=Schematic Member=Component J2 XT30PW-M
+Added Member To Class: ClassName=Schematic Member=Component U1 SC0915

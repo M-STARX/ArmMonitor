@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=3V3 Pin=U1-40
+Change Component Designator: OldDesignator=Kill NewDesignator=S5
+Change Component Designator: OldDesignator=Mode 1 NewDesignator=S1
+Change Component Designator: OldDesignator=Mode 2 NewDesignator=S2
+Change Component Designator: OldDesignator=Mode 3 NewDesignator=S4
+Change Component Designator: OldDesignator=Mode 4 NewDesignator=S3
+Change Component Designator: OldDesignator=PAM8302 Mono-Amplifier NewDesignator=J3
+Added Pin To Net: NetName=GND Pin=U1-37
+Added Member To Class: ClassName=Schematic Member=Component S2 B3F-4055

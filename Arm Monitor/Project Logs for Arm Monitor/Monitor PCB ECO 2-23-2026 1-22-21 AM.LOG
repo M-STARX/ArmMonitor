@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=SW1 Pin=U1-6
+Removed Pin From Net: NetName=SW2 Pin=U1-7
+Removed Pin From Net: NetName=SW5 Pin=U1-11
+Change Component Designator: OldDesignator=PAM8302 Mono Amplifier NewDesignator=J3
+Added Pin To Net: NetName=SW1 Pin=U1-26
+Added Pin To Net: NetName=SW2 Pin=U1-27
+Added Pin To Net: NetName=SW5 Pin=U1-29

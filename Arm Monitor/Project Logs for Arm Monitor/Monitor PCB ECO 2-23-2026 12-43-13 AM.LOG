@@ -1,0 +1,18 @@
+Added Component: Designator=*(TFT-320x240)
+Add component (AddParameter): Name = "Supplier"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "TFT_320x240"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=*-2
+Added Pin To Net: NetName=CS Pin=*-3
+Added Pin To Net: NetName=RST Pin=*-4
+Added Pin To Net: NetName=DC Pin=*-5
+Added Pin To Net: NetName=MOSI Pin=*-6
+Added Pin To Net: NetName=SCK Pin=*-7
+Added Pin To Net: NetName=MISO Pin=*-9
+Added Pin To Net: NetName=3V3 Pin=*-1
+Added Pin To Net: NetName=3V3 Pin=*-8
+Added Pin To Net: NetName=3V3 Pin=J2-P
+Added Pin To Net: NetName=3V3 Pin=U1-39
+Added Pin To Net: NetName=3V3 Pin=U1-40
+Added Net: Name=3V3
+Added Member To Class: ClassName=Schematic Member=Component * TFT_320x240
+Added Rule: Name=Schematic Supply Nets_2

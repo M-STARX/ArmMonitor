@@ -1,0 +1,71 @@
+Change Component Designator: OldDesignator=U? NewDesignator=U1
+Added Component: Designator=S1(SW_B3F-4055)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "B3F-4055"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=S2(SW_B3F-4055)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "B3F-4055"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=S3(SW_B3F-4055)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "B3F-4055"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=S4(SW_B3F-4055)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "B3F-4055"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=S5(SW_B3F-4055)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "B3F-4055"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=S1-3
+Added Pin To Net: NetName=GND Pin=S1-4
+Added Pin To Net: NetName=GND Pin=S2-3
+Added Pin To Net: NetName=GND Pin=S2-4
+Added Pin To Net: NetName=GND Pin=S3-3
+Added Pin To Net: NetName=GND Pin=S3-4
+Added Pin To Net: NetName=GND Pin=S4-3
+Added Pin To Net: NetName=GND Pin=S4-4
+Added Pin To Net: NetName=GND Pin=S5-3
+Added Pin To Net: NetName=GND Pin=S5-4
+Added Pin To Net: NetName=SW1 Pin=S1-1
+Added Pin To Net: NetName=SW1 Pin=S1-2
+Added Pin To Net: NetName=SW1 Pin=U1-6
+Added Net: Name=SW1
+Added Pin To Net: NetName=SW2 Pin=S2-1
+Added Pin To Net: NetName=SW2 Pin=S2-2
+Added Pin To Net: NetName=SW2 Pin=U1-7
+Added Net: Name=SW2
+Added Pin To Net: NetName=SW3 Pin=S3-1
+Added Pin To Net: NetName=SW3 Pin=S3-2
+Added Pin To Net: NetName=SW3 Pin=U1-9
+Added Net: Name=SW3
+Added Pin To Net: NetName=SW4 Pin=S4-1
+Added Pin To Net: NetName=SW4 Pin=S4-2
+Added Pin To Net: NetName=SW4 Pin=U1-10
+Added Net: Name=SW4
+Added Pin To Net: NetName=SW5 Pin=S5-1
+Added Pin To Net: NetName=SW5 Pin=S5-2
+Added Pin To Net: NetName=SW5 Pin=U1-11
+Added Net: Name=SW5
+Added Member To Class: ClassName=Schematic Member=Component S1 B3F-4055
+Added Member To Class: ClassName=Schematic Member=Component S2 B3F-4055
+Added Member To Class: ClassName=Schematic Member=Component S3 B3F-4055
+Added Member To Class: ClassName=Schematic Member=Component S4 B3F-4055
+Added Member To Class: ClassName=Schematic Member=Component S5 B3F-4055
